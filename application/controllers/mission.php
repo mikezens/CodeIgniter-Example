@@ -5,15 +5,17 @@ class Mission extends CI_Controller {
 	
 	public function index()
 	{
+    	// Load
     	$this->load->library('csvreader');
-    	
     	
     	$this->load->helper('form');
     	
     	
+    	// Set default CSV filename
     	$default_csv = './downloads/data.csv';
     	
-    	
+        
+        // Check for file upload and process	
     	if($_FILES['userfile']['name']) {
         	
         	$config['upload_path'] = './uploads/';
@@ -30,9 +32,11 @@ class Mission extends CI_Controller {
     		}
     	}
     	
-    	
+    	// Parse CSV Data
         $mission_data['csv_data'] = $this->csvreader->parse_file($default_csv);
 	
+    	
+        // Template
 		$this->load->view('mission', $mission_data);
 	}
 }
